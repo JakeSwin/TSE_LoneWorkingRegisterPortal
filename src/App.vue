@@ -1,12 +1,12 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
 import HelloWorld from '@/components/HelloWorld.vue'
-import LoginVue from './components/Login.vue';
+import LoginVue from './views/Login.vue';
 </script>
 
 <template>
   <header>
-    <LoginVue></LoginVue>
+    <RouterView></RouterView>
     <!-- <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
 
     <div class="wrapper">

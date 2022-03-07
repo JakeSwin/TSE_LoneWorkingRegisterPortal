@@ -17,10 +17,14 @@
                 <label for="password">Password:</label>
                 <input type="text" name="password" id="password-field">
             </div>
-            <button>Sign In</button>
+            <div class="form-field">
+                <label for="password">Re-enter Password:</label>
+                <input type="text" name="re-password" id="re-password-field">
+            </div>
+            <button>Register</button>
         </form>
         <footer>
-            <a href="">Not Signed Up? Register Now</a>
+            <router-link to="/login">Back to Sign In</router-link>
         </footer>
     </div>
 </template>
