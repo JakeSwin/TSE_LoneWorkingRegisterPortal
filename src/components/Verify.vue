@@ -8,19 +8,18 @@
             <img src="@/assets/LincolnLogo.png" alt="Lincoln Logo" class="logo">
             <h1>Lone Working Register</h1>
         </header>
-        <form action="" method="post">
+        <div class="alert">
+            <p>We have sent a 6 digit verification Code to: 00000000@students.lincoln.ac.uk</p>
+        </div>
+        <form action="" method="post" @submit.prevent="">
             <div class="form-field">
-                <label for="email">Email:</label>
-                <input type="text" name="email" id="email-field">
+                <label for="email">Confirmation Code:</label>
+                <input type="text" name="conf-code" id="conf-field">
             </div>
-            <div class="form-field">
-                <label for="password">Password:</label>
-                <input type="text" name="password" id="password-field">
-            </div>
-            <button>Sign In</button>
+            <button>Verify Account</button>
         </form>
         <footer>
-            <router-link to="/register">Not Signed Up? Register Now</router-link>
+            <router-link to="/login">Back to Sign In</router-link>
         </footer>
     </div>
 </template>
@@ -31,7 +30,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 3em;
+    gap: 2em;
     font-size: 1rem;
     background-color: white;
     width: 100%;
@@ -97,5 +96,9 @@ footer {
 .form-field {
     display: flex;
     flex-direction: column;
+}
+
+.alert {
+    text-align: center;
 }
 </style>

@@ -1,5 +1,12 @@
-<script setup>
-
+<script>
+export default {
+    emits: ['submitMe'],
+    methods: {
+        submitForm() {
+            this.$emit('submitMe', 1)
+        }
+    }
+}
 </script>
 
 <template>
@@ -8,7 +15,7 @@
             <img src="@/assets/LincolnLogo.png" alt="Lincoln Logo" class="logo">
             <h1>Lone Working Register</h1>
         </header>
-        <form action="" method="post">
+        <form action="" method="post" @submit.prevent="submitForm()">
             <div class="form-field">
                 <label for="email">Email:</label>
                 <input type="text" name="email" id="email-field">

@@ -8,7 +8,7 @@
             <img src="@/assets/LincolnLogo.png" alt="Lincoln Logo" class="logo">
             <h1>Lone Working Register</h1>
         </header>
-        <form action="" method="post">
+        <form action="" method="post" @submit.prevent="">
             <div class="form-field">
                 <label for="email">Email:</label>
                 <input type="text" name="email" id="email-field">
