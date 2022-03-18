@@ -1,63 +1,38 @@
 <script>
 import TaskBar from '../components/TaskBar.vue'
+import Heatmap from '../components/Heatmap.vue'
+import SignInStatus from '../components/SignInStatus.vue'
 
 export default {
-    mounted() {
-        var colorscaleValue = [
-            [0, "#EBEBEB"],
-            [1, "#33E9C8"]
-        ];
-        var data = [
-            {
-                z: [
-                    [0, 1, 1, 0, 0, 0, 1],
-                    [1, 0, 1, 0, 0, 1, 0],
-                    [0, 0, 0, 1, 0, 0, 1],
-                    [0, 0, 1, 0, 0, 0, 0]
-                ],
-                x: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
-                y: [1, 2, 3, 4],
-                xgap: 5,
-                ygap: 5,
-                type: "heatmap",
-                colorscale: colorscaleValue,
-                showscale: false
-            }
-        ];
-        var config = {
-            staticPlot: true
-        };
-        var layout = {
-            showLegend: false,
-            width: 350,
-            height: 320,
-            margin: {
-                t: 0,
-                b: 60,
-                l: 30,
-                r: 30
-            }
-        };
-        Plotly.newPlot("sign-in-heatmap", data, layout, config);
-    },
-    components: { TaskBar }
+  data() {
+    return {
+      taskBarVisible: false
+    }
+  },
+  methods: {
+    toggleShowTaskBar() {
+      if (this.taskBarVisible == false) {
+        this.taskBarVisible = true
+      } else {
+        this.taskBarVisible = false
+      }
+    }
+  },
+  components: { TaskBar, Heatmap, SignInStatus }
 }
 </script>
 
 <template>
-  <TaskBar></TaskBar>
+  <TaskBar :visible="taskBarVisible" @close="toggleShowTaskBar()"></TaskBar>
   <div class="container">
     <header>
+      <div @click="toggleShowTaskBar()" class="menu-mask"></div>
       <object data="/MenuIcon.svg" type="image/svg+xml"></object>
       <h2>DASHBOARD</h2>
     </header>
     <div class="content">
-      <div class="sign-in-status status-on">
-        <p>You are currently signed in Room INB1102</p>
-      </div>
-      <div id="sign-in-heatmap">
-        
-      </div>
+      <SignInStatus isSignedIn="true"></SignInStatus>
+      <Heatmap></Heatmap>
       <div class="rooms">
         <p>Update Room:</p>
         <form action="" method="post" @submit.prevent="">
@@ -102,20 +77,11 @@ header {
   width: 100%;
 }
 
-.sign-in-status {
-  border: 2px solid;
-  text-align: center;
-  padding: 0.5em;
-  border-radius: 10px;
-  font-size: 1.1em;
-}
-
-.status-on {
-  color: #1cd325;
-}
-
-.status-off {
-  color: #E93333;
+.menu-mask {
+  position: absolute;
+  z-index: 10;
+  width: 40px;
+  height: 40px;
 }
 
 form {

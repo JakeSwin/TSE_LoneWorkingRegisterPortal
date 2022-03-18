@@ -1,15 +1,26 @@
 <script>
-
+export default {
+    props: ['visible'],
+    emits: ['close'],
+    methods: {
+        closeTaskBar() {
+            this.$emit('close')
+        }
+    }
+}
 </script>
 
 <template>
-    <div class="task-bar-content">
+    <div class="task-bar-content" v-if="visible">
         <div class="bar">
             <object data="/task-bar-top.svg" type="image/svg+xml"></object>
             <img src="@/assets/LincolnLogo.png" alt="" class="logo">
-            <h2>Sign Out</h2>
+            <div class="sign-out">
+                <h2>Sign Out</h2>
+                <object data="/sign-out.svg" type="image/svg+xml"></object>
+            </div>
         </div>
-        <div class="invis">
+        <div class="invis" @click="closeTaskBar()">
 
         </div>
     </div>
@@ -17,15 +28,15 @@
 
 <style scoped>
 .task-bar-content {
-    width: 375px;
-    height: 667px;
+    width: 100vw;
+    height: 100vh;
     display: flex;
     position: fixed;
     z-index: 100;
 }
 
 .bar {
-    width: 236px;
+    width: 14em;
     height: 100%;
     background-color: #002147;
     padding: 0;
@@ -34,6 +45,15 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: flex-start;
+}
+
+.sign-out {
+    display: flex;
+    flex-direction: row;
+}
+
+.sign-out object {
+    width: 1.3em;
 }
 
 .logo {
@@ -50,7 +70,7 @@
 }
 
 .invis {
-    width: 60%;
+    flex-grow: 2;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.2);
 }
