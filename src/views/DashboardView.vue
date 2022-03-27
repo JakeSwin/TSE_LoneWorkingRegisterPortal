@@ -3,6 +3,7 @@ import TaskBar from '../components/TaskBar.vue'
 import Heatmap from '../components/Heatmap.vue'
 import SignInStatus from '../components/SignInStatus.vue'
 import ChangeRoomForm from '../components/ChangeRoomForm.vue'
+import SignedInList from '../components/SignedInList.vue'
 
 export default {
   data() {
@@ -26,7 +27,7 @@ export default {
       }
     }
   },
-  components: { TaskBar, Heatmap, SignInStatus, ChangeRoomForm }
+  components: { TaskBar, Heatmap, SignInStatus, ChangeRoomForm, SignedInList }
 }
 </script>
 
@@ -42,6 +43,7 @@ export default {
       <SignInStatus :isSignedIn="signedIn"></SignInStatus>
       <Heatmap :heatmapData="heatmap"></Heatmap>
       <ChangeRoomForm></ChangeRoomForm>
+      <!-- <SignedInList></SignedInList> -->
     </div>
   </div>
 </template>
