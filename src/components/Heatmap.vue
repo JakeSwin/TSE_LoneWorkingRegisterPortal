@@ -1,5 +1,16 @@
 <script>
 export default {
+  props: {
+    heatmapData: {
+      type: Object,
+      default: [
+          [0, 0, 0, 0, 0, 0, 0],
+          [0, 0, 0, 0, 0, 0, 0],
+          [0, 0, 0, 0, 0, 0, 0],
+          [0, 0, 0, 0, 0, 0, 0]
+        ]
+    }
+  },
   mounted() {
     var colorscaleValue = [
         [0, "#EBEBEB"],
@@ -7,12 +18,7 @@ export default {
     ];
     var data = [
       {
-        z: [
-          [0, 1, 1, 0, 0, 0, 1],
-          [1, 0, 1, 0, 0, 1, 0],
-          [0, 0, 0, 1, 0, 0, 1],
-          [0, 0, 1, 0, 0, 0, 0]
-        ],
+        z: this.heatmapData,
         x: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
         y: [1, 2, 3, 4],
         xgap: 5,

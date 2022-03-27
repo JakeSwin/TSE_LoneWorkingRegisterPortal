@@ -1,21 +1,21 @@
 <script>
   export default {
-    props: ['isSignedIn'],
-    computed: {
-      whichStatus() {
-        console.log(this.isSignedIn);
-        if (this.isSignedIn == true) {
-          return 'status-on'
-        } else {
-          return 'status-off'
+    props: {
+      'isSignedIn': Boolean
+    },
+    methods: {
+      getClass() {
+        return {
+          'status-off': !this.isSignedIn,
+          'status-on': this.isSignedIn
         }
       }
-    }
+    },
   }
 </script>
 
 <template>
-  <div class="sign-in-status" :class="[whichStatus]">
+  <div class="sign-in-status" :class="getClass()">
     <p>You are currently signed in Room INB1102</p>
   </div>
 </template>
