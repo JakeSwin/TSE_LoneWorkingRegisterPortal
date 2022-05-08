@@ -1,5 +1,6 @@
 <script>
 import StudentListIcon from "./StudentListIcon.vue"
+import StudentListSlot from "./StudentListSlot.vue"
 
 export default {
   data() {
@@ -59,7 +60,7 @@ export default {
     }
   },
   components: {
-    StudentListIcon
+    StudentListIcon, StudentListSlot
   }
 }
 </script>
@@ -67,7 +68,17 @@ export default {
 <template>
   <div class="student-list">
     <h4>Signed In Students:</h4>
-    <StudentListIcon v-for="item in list" :key="item.studentID" :studentData="item" class="student-item"></StudentListIcon>
+    <StudentListSlot>
+      <template #first><div class="labels">Id</div></template>
+      <template #second><div class="labels">Room</div></template>
+      <template #third><div class="labels">Time</div></template>
+    </StudentListSlot>
+    <!-- <StudentListIcon v-for="item in list" :key="item.studentID" :studentData="item" class="student-item"></StudentListIcon> -->
+    <StudentListSlot v-for="item in list" :key="item.studentID">
+      <template #first> {{item.studentID}} </template>
+      <template #second> {{item.roomID}} </template>
+      <template #third> {{item.time}} </template>
+    </StudentListSlot>
   </div>
 </template>
 
@@ -78,7 +89,18 @@ export default {
   flex-direction: column;
 }
 
-.student-item:nth-child(even) {
-  background: #eeeeee;
+h4 {
+  margin-top: 1.5em;
+  margin-left: 2em;
+}
+
+.labels {
+  font-size: 0.8em;
+  font-weight: 300;
+  margin: 0.5em 0;
+}
+
+.student-item:nth-child(odd) {
+  background: #f8f8f8;
 }
 </style>

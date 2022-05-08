@@ -4,6 +4,7 @@ import Heatmap from '../components/Heatmap.vue'
 import SignInStatus from '../components/SignInStatus.vue'
 import ChangeRoomForm from '../components/ChangeRoomForm.vue'
 import SignedInList from '../components/SignedInList.vue'
+import DisplayHeaderTemplate from '../components/DisplayHeaderTemplate.vue'
 
 export default {
   data() {
@@ -16,6 +17,15 @@ export default {
         [0, 0, 0, 1, 0, 0, 1],
         [0, 0, 1, 0, 0, 0, 0]
       ],
+      stats2: [{
+        id: 1,
+        value: 24,
+        message: "students signed in" 
+      }, {
+        id: 2,
+        value: 104,
+        message: "total door footfall"
+      }]
     }
   },
   methods: {
@@ -27,7 +37,7 @@ export default {
       }
     }
   },
-  components: { TaskBar, Heatmap, SignInStatus, ChangeRoomForm, SignedInList }
+  components: { TaskBar, Heatmap, SignInStatus, ChangeRoomForm, SignedInList, DisplayHeaderTemplate }
 }
 </script>
 
@@ -39,11 +49,15 @@ export default {
       <object data="/MenuIcon.svg" type="image/svg+xml"></object>
       <h2>DASHBOARD</h2>
     </header>
+    <div class="date">
+      {{ new Date().toDateString() }}
+    </div>
+    <!-- <DisplayHeaderTemplate :stats="stats2"></DisplayHeaderTemplate>
+    <SignedInList></SignedInList> -->
     <div class="content">
       <SignInStatus :isSignedIn="signedIn"></SignInStatus>
       <Heatmap :heatmapData="heatmap"></Heatmap>
       <ChangeRoomForm></ChangeRoomForm>
-      <!-- <SignedInList></SignedInList> -->
     </div>
   </div>
 </template>
@@ -65,6 +79,10 @@ header {
   padding: 1.3rem;
   font-weight: 700;
   font-size: 0.9em;
+}
+
+.date {
+  padding: 1.1em 1.5em;
 }
 
 .content {
