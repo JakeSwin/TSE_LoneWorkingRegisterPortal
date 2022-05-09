@@ -1,9 +1,52 @@
 <script>
 export default {
     emits: ['submitMe'],
+    data() {
+        return {
+            email: '',
+            password: '',
+            rePassword: '',
+            errorMessage: '',
+            errorEmail: '',
+            errorPassword: '',
+            errorRePassword: ''
+        }
+    },
+    watch: {
+        email(newEmail, oldEmail) {
+            const re = new RegExp(/\d{8}@students.lincoln.ac.uk/g)
+            const matchArray = re.test(newEmail)
+            console.log(matchArray)
+        }
+    },
     methods: {
         submitForm() {
             this.$emit('submitMe', 1)
+        },
+        sendRegisterRequest() {
+            const Url = 'https://jakesjsonplaceholder.com/register'
+            const Data = {
+                email: this.email,
+                password: this.password
+            }
+
+            const otherParams = {
+                headers:{
+                    'content-type': 'application/json; charset=UTF-8'
+                },
+                body: {
+                    Data
+                },
+                method:'POST'
+            }
+
+            fetch(Url, otherParams)
+            .then(data=>{return data.json()})
+            .then(res=>console.log(res))
+            .catch(error=>{
+                console.log(error)
+                this.errorMessage = 'Username or Email is incorrect'
+            })
         }
     }
 }
@@ -14,21 +57,25 @@ export default {
         <header>
             <img src="@/assets/LincolnLogo.png" alt="Lincoln Logo" class="logo">
             <h1>Lone Working Register</h1>
+            <p v-if="errorMessage">{{errorMessage}}</p>
         </header>
         <form action="" method="post" @submit.prevent="submitForm()">
             <div class="form-field">
                 <label for="email">Email:</label>
-                <input type="text" name="email" id="email-field">
+                <input type="text" name="email" id="email-field" v-model="email">
+                <p v-if="errorEmail" class="error-message">{{errorEmail}}</p>
             </div>
             <div class="form-field">
                 <label for="password">Password:</label>
-                <input type="text" name="password" id="password-field">
+                <input type="password" name="password" id="password-field" v-model="password">
+                <p v-if="errorPassword" class="error-message">{{errorPassword}}</p>
             </div>
             <div class="form-field">
                 <label for="password">Re-enter Password:</label>
-                <input type="text" name="re-password" id="re-password-field">
+                <input type="password" name="re-password" id="re-password-field" v-model="rePassword">
+                <p v-if="errorRePassword" class="error-message">{{errorRePassword}}</p>
             </div>
-            <button>Register</button>
+            <button @click="sendRegisterRequest()">Register</button>
         </form>
         <footer>
             <router-link to="/login">Back to Sign In</router-link>
@@ -42,7 +89,7 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 3em;
+    gap: 2em;
     font-size: 1rem;
     background-color: white;
     width: 100%;
@@ -58,6 +105,11 @@ header {
 
 header h1 {
     font-size: 1.3em;
+}
+
+header p {
+    font-size: 0.9em;
+    color: red;
 }
 
 form {
@@ -81,6 +133,10 @@ form .form-field input {
 
 form .form-field label {
     font-size: 0.8em;
+}
+
+.error-message {
+    font-size: 0.7em;
 }
 
 form button {
