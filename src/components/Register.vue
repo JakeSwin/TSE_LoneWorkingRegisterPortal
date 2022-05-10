@@ -13,40 +13,93 @@ export default {
         }
     },
     watch: {
-        email(newEmail, oldEmail) {
-            const re = new RegExp(/\d{8}@students.lincoln.ac.uk/g)
+        email(newEmail) {
+            const re = new RegExp(/(?<!\d)\d{8}(?!\d)@students\.lincoln\.ac\.uk/g)
             const matchArray = re.test(newEmail)
-            console.log(matchArray)
+
+            if (!matchArray) {
+                this.errorEmail = 'Email only accepts valid University Of Lincoln Emails'
+            } else {
+                this.errorEmail = ''
+            }
+
+            if (newEmail.length == 0) { this.errorEmail = '' }
+        },
+        password(newPassword) {
+            const re = new RegExp(/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,32}$/g)
+            const matchArray = re.test(newPassword)
+
+            if (!matchArray) {
+                this.errorPassword = 'Password must be at least 8 characters long with digits, uppercase and lowercase'
+            } else {
+                this.errorPassword = ''
+            }
+
+            if (newPassword.length == 0) { this.errorPassword = '' }
+        },
+        rePassword(newRePassword) {
+            const matchArray = (this.password == this.rePassword)
+            
+            if (!matchArray) {
+                this.errorRePassword = 'Passwords do not match'
+            } else {
+                this.errorRePassword = ''
+            }
+
+            if (newRePassword.length == 0) { this.errorRePassword = '' }
         }
     },
     methods: {
+        checkValidFields() {
+            const emailRe = new RegExp(/(?<!\d)\d{8}(?!\d)@students\.lincoln\.ac\.uk/g)
+            const passwordRe = new RegExp(/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,32}$/g)
+            
+            const matchEmail = emailRe.test(this.email)
+            const matchPassword = passwordRe.test(this.password)
+            const matchRePassword = (this.password == this.rePassword)
+
+            if (matchEmail && matchPassword && matchRePassword) {
+                return true
+            } else {
+                return false
+            }
+        },
         submitForm() {
             this.$emit('submitMe', 1)
         },
         sendRegisterRequest() {
-            const Url = 'https://jakesjsonplaceholder.com/register'
-            const Data = {
-                email: this.email,
-                password: this.password
-            }
+            if (this.checkValidFields()) {
 
-            const otherParams = {
-                headers:{
-                    'content-type': 'application/json; charset=UTF-8'
-                },
-                body: {
-                    Data
-                },
-                method:'POST'
-            }
+                const Url = 'https://jakesjsonplaceholder.com/register'
+                const Data = {
+                    email: this.email,
+                    password: this.password
+                }
 
-            fetch(Url, otherParams)
-            .then(data=>{return data.json()})
-            .then(res=>console.log(res))
-            .catch(error=>{
-                console.log(error)
-                this.errorMessage = 'Username or Email is incorrect'
-            })
+                const otherParams = {
+                    headers:{
+                        'content-type': 'application/json; charset=UTF-8'
+                    },
+                    body: {
+                        Data
+                    },
+                    method:'POST'
+                }
+
+                fetch(Url, otherParams)
+                .then(data=>{return data.json()})
+                .then(res=>{
+                    console.log(res)
+                    this.submitForm()
+                })
+                .catch(error=>{
+                    console.log(error)
+                    this.errorMessage = 'One or more form fields are incorrect'
+                })
+
+            } else {
+                this.errorMessage = 'One or more form fields are incorrect'
+            }
         }
     }
 }
@@ -59,7 +112,7 @@ export default {
             <h1>Lone Working Register</h1>
             <p v-if="errorMessage">{{errorMessage}}</p>
         </header>
-        <form action="" method="post" @submit.prevent="submitForm()">
+        <form action="" method="post" @submit.prevent="">
             <div class="form-field">
                 <label for="email">Email:</label>
                 <input type="text" name="email" id="email-field" v-model="email">
