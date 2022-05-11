@@ -1,5 +1,39 @@
-<script setup>
+<script>
+export default {
+    props: ['email'],
+    data() {
+        return {
+            errorMessage: '',
+            code: ''
+        }
+    },
+    methods: {
+        sendConfirmationCode() {
+            const Url = 'https://jakesjsonplaceholder.com/confirm'
+            const Data = {
+                confirmationCode: this.code
+            }
 
+            const otherParams = {
+                headers:{
+                    'content-type': 'application/json; charset=UTF-8'
+                },
+                body: {
+                    Data
+                },
+                method:'POST'
+            }
+
+            fetch(Url, otherParams)
+            .then(data=>{return data.json()})
+            .then(res=>console.log(res))
+            .catch(error=>{
+                console.log(error)
+                this.errorMessage = 'Invalid Confirmation Code'
+            })
+        }
+    }
+}
 </script>
 
 <template>
@@ -9,14 +43,15 @@
             <h1>Lone Working Register</h1>
         </header>
         <div class="alert">
-            <p>We have sent a 6 digit verification Code to: 00000000@students.lincoln.ac.uk</p>
+            <p>We have sent a 6 digit verification Code to: {{ email }}</p>
+            <p v-if="errorMessage" class="error">{{errorMessage}}</p>
         </div>
         <form action="" method="post" @submit.prevent="">
             <div class="form-field">
                 <label for="email">Confirmation Code:</label>
-                <input type="text" name="conf-code" id="conf-field">
+                <input type="text" name="conf-code" id="conf-field" v-model="code">
             </div>
-            <button>Verify Account</button>
+            <button @click="sendConfirmationCode()">Verify Account</button>
         </form>
         <footer>
             <router-link to="/login">Back to Sign In</router-link>
@@ -46,6 +81,12 @@ header {
 
 header h1 {
     font-size: 1.3em;
+}
+
+.error {
+    margin-top: 1em;
+    font-size: 0.8em;
+    color: red;
 }
 
 form {

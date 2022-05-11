@@ -1,6 +1,6 @@
 <script>
 export default {
-    emits: ['submitMe'],
+    emits: ['registerSubmitted'],
     data() {
         return {
             email: '',
@@ -65,7 +65,7 @@ export default {
             }
         },
         submitForm() {
-            this.$emit('submitMe', 1)
+            this.$emit('registerSubmitted', this.email)
         },
         sendRegisterRequest() {
             if (this.checkValidFields()) {
@@ -90,9 +90,10 @@ export default {
                 .then(data=>{return data.json()})
                 .then(res=>{
                     console.log(res)
-                    this.submitForm()
+                    //this.submitForm()
                 })
                 .catch(error=>{
+                    this.submitForm()
                     console.log(error)
                     this.errorMessage = 'One or more form fields are incorrect'
                 })
