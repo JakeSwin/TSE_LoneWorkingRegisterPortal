@@ -1,6 +1,6 @@
 <script>
-import Register from '../components/Register.vue'
-import Verify from '../components/Verify.vue'
+import Register from '../components/register_pages/Register.vue'
+import Verify from '../components/register_pages/Verify.vue'
 
 export default {
     components: {
