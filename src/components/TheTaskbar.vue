@@ -1,10 +1,16 @@
 <script>
+import store from '../store.js'
+
 export default {
     props: ['visible'],
     emits: ['close'],
     methods: {
         closeTaskBar() {
             this.$emit('close')
+        },
+        logOut() {
+            store.setLoggedIn(false)
+            this.$router.push({ name: 'login' })
         }
     }
 }
@@ -15,8 +21,8 @@ export default {
         <div class="bar">
             <object data="/task-bar-top.svg" type="image/svg+xml"></object>
             <img src="@/assets/LincolnLogo.png" alt="" class="logo">
-            <div class="sign-out">
-                <h2>Sign Out</h2>
+            <div class="log-out" @click="logOut">
+                <h2>Log Out</h2>
                 <object data="/sign-out.svg" type="image/svg+xml"></object>
             </div>
         </div>
@@ -47,12 +53,12 @@ export default {
     align-items: flex-start;
 }
 
-.sign-out {
+.log-out {
     display: flex;
     flex-direction: row;
 }
 
-.sign-out object {
+.log-out object {
     width: 1.3em;
 }
 

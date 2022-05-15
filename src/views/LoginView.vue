@@ -1,5 +1,9 @@
 <script>
+import store from '../store.js'
+
+
 export default {
+    // inject: ['state'],
     data() {
         return {
             email: '',
@@ -31,6 +35,8 @@ export default {
             .catch(error=>{
                 console.log(error)
                 this.errorMessage = 'Username or Email is incorrect'
+                store.setLoggedIn(true)
+                this.$router.push({name: 'dashboard'})
             })
         }
     }
@@ -53,10 +59,10 @@ export default {
                 <label for="password">Password:</label>
                 <input type="password" name="password" id="password-field" v-model="password">
             </div>
-            <button @click="sendLoginRequest()">Sign In</button>
+            <button @click="sendLoginRequest()">Log In</button>
         </form>
         <footer>
-            <router-link to="/register">Not Signed Up? Register Now</router-link>
+            <router-link to="/register">Register Account</router-link>
         </footer>
     </div>
 </template>

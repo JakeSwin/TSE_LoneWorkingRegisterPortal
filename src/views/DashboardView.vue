@@ -3,10 +3,17 @@ import TaskBar from '../components/TheTaskbar.vue'
 import StudentDashboard from '../components/dashboards/StudentDashboard.vue'
 import AdminDashboard from '../components/dashboards/AdminDashboard.vue'
 
+import store from '../store.js'
+
 export default {
   data() {
     return {
       taskBarVisible: false
+    }
+  },
+  computed: {
+    whichDashboard() {
+      return !store.getIsAdmin() ? 'StudentDashboard' : 'AdminDashboard'
     }
   },
   methods: {
@@ -33,8 +40,7 @@ export default {
     <div class="date">
       {{ new Date().toDateString() }}
     </div>
-    <AdminDashboard></AdminDashboard>
-    <!-- <StudentDashboard></StudentDashboard> -->
+    <component :is="whichDashboard"></component>
   </div>
 </template>
 

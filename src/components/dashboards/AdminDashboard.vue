@@ -16,13 +16,21 @@ export default {
       }]
     }
   },
+  computed: {
+    switchStudentView() {
+      return this.$route.name == 'dashboard' ? true : false
+    }
+  },
   components: { SignedInList, StatisticsBanner }
 }
 </script>
 
 <template>
-  <StatisticsBanner :stats="stats"></StatisticsBanner>
-  <SignedInList></SignedInList>
+  <div v-if="switchStudentView">
+    <StatisticsBanner :stats="stats"></StatisticsBanner>
+    <SignedInList></SignedInList>
+  </div>
+  <router-view></router-view>
 </template>
 
 <style>

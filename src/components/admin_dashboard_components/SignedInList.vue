@@ -1,6 +1,5 @@
 <script>
 import StudentListIcon from "./StudentListIcon.vue"
-import StudentListSlot from "./StudentListSlot.vue"
 
 export default {
   data() {
@@ -27,40 +26,43 @@ export default {
           time: "21:32"
         },
         {
-          studentID: "25105508",
+          studentID: "25205508",
           roomID: "INB1104",
           time: "19:14"
         },
         {
-          studentID: "25107512",
+          studentID: "25207512",
           roomID: "IN2102",
           time: "18:46"
         },
         {
-          studentID: "25123418",
+          studentID: "25223418",
           roomID: "INB1103",
           time: "20:28"
         },
         {
-          studentID: "24112596",
+          studentID: "24212596",
           roomID: "INB3101",
           time: "21:32"
         },
         {
-          studentID: "25105508",
+          studentID: "25305508",
           roomID: "INB1104",
           time: "19:14"
         },
         {
-          studentID: "25107512",
+          studentID: "25307512",
           roomID: "IN2102",
           time: "18:46"
         }
       ]
     }
   },
+  computed: {
+    
+  },
   components: {
-    StudentListIcon, StudentListSlot
+    StudentListIcon
   }
 }
 </script>
@@ -68,21 +70,22 @@ export default {
 <template>
   <div class="student-list">
     <h4>Signed In Students:</h4>
-    <StudentListSlot>
-      <template #first><div class="labels">Id</div></template>
-      <template #second><div class="labels">Room</div></template>
-      <template #third><div class="labels">Time</div></template>
-    </StudentListSlot>
-    <!-- <StudentListIcon v-for="item in list" :key="item.studentID" :studentData="item" class="student-item"></StudentListIcon> -->
-    <StudentListSlot v-for="item in list" :key="item.studentID">
-      <template #first> {{item.studentID}} </template>
-      <template #second> {{item.roomID}} </template>
-      <template #third> {{item.time}} </template>
-    </StudentListSlot>
+    <div class="student-item">
+      <div class="id">
+        <div class="labels">Id</div>
+      </div>
+      <div class="room">
+        <div class="labels">Room</div>
+      </div>
+      <div class="time">
+        <div class="labels">Time</div>
+      </div>
+    </div>
+    <StudentListIcon v-for="item in list" :key="item.studentID" :studentData="item" class="student-item"></StudentListIcon>
   </div>
 </template>
 
-<style scoped>
+<style>
 .student-list {
   width: 100%;
   display: flex;
@@ -102,5 +105,26 @@ h4 {
 
 .student-item:nth-child(odd) {
   background: #f8f8f8;
+}
+
+.student-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0.2em 2em;
+}
+
+.id {
+  width: 45%;
+}
+
+.room {
+  flex-grow: 1;
+  text-align: left;
+}
+
+.time {
+  flex-grow: 1;
+  text-align: end;
 }
 </style>

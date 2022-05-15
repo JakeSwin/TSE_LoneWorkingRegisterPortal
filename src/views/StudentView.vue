@@ -1,13 +1,12 @@
 <script>
-import Heatmap from '../statistics/Heatmap.vue'
-import SignInStatus from '../student_dashboard_components/StudentSignInStatus.vue'
-import StudentRoomForm from '../student_dashboard_components/StudentRoomForm.vue'
+import Heatmap from '../components/statistics/Heatmap.vue'
+import SignInStatus from '../components/student_dashboard_components/StudentSignInStatus.vue'
 
 export default {
   data() {
     return {
       signedIn: true,
-      studentID: '25105508', //placeholder, value will be in global state
+      studentID: this.$route.params.studentID, //placeholder, value will be in global state
       heatmap: [
         [0, 1, 1, 0, 0, 0, 1],
         [1, 0, 1, 0, 0, 1, 0],
@@ -16,7 +15,7 @@ export default {
       ]
     }
   },
-  components: { Heatmap, SignInStatus, StudentRoomForm }
+  components: { Heatmap, SignInStatus }
 }
 </script>
 
@@ -24,7 +23,7 @@ export default {
   <div class="content">
     <SignInStatus :isSignedIn="signedIn" :studentID="studentID"></SignInStatus>
     <Heatmap :heatmapData="heatmap"></Heatmap>
-    <StudentRoomForm></StudentRoomForm>
+    <router-link to="/dashboard">Back</router-link>
   </div>
 </template>
 
