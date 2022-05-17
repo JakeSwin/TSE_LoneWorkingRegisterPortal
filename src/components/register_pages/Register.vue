@@ -168,6 +168,7 @@ header p {
 
 form {
     width: 100%;
+    max-width: 25em;
     display: flex;
     flex-direction: column;
     align-items: center;

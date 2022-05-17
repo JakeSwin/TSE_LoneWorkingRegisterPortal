@@ -2,65 +2,7 @@
 import StudentListIcon from "./StudentListIcon.vue"
 
 export default {
-  data() {
-    return {
-      list: [
-        {
-          studentID: "25105508",
-          roomID: "INB1104",
-          time: "19:14"
-        },
-        {
-          studentID: "25107512",
-          roomID: "IN2102",
-          time: "18:46"
-        },
-        {
-          studentID: "25123418",
-          roomID: "INB1103",
-          time: "20:28"
-        },
-        {
-          studentID: "24112596",
-          roomID: "INB3101",
-          time: "21:32"
-        },
-        {
-          studentID: "25205508",
-          roomID: "INB1104",
-          time: "19:14"
-        },
-        {
-          studentID: "25207512",
-          roomID: "IN2102",
-          time: "18:46"
-        },
-        {
-          studentID: "25223418",
-          roomID: "INB1103",
-          time: "20:28"
-        },
-        {
-          studentID: "24212596",
-          roomID: "INB3101",
-          time: "21:32"
-        },
-        {
-          studentID: "25305508",
-          roomID: "INB1104",
-          time: "19:14"
-        },
-        {
-          studentID: "25307512",
-          roomID: "IN2102",
-          time: "18:46"
-        }
-      ]
-    }
-  },
-  computed: {
-    
-  },
+  props: ['studentList'],
   components: {
     StudentListIcon
   }
@@ -81,7 +23,7 @@ export default {
         <div class="labels">Time</div>
       </div>
     </div>
-    <StudentListIcon v-for="item in list" :key="item.studentID" :studentData="item" class="student-item"></StudentListIcon>
+    <StudentListIcon v-for="item in studentList" :key="item.studentID" :studentData="item" class="student-item"></StudentListIcon>
   </div>
 </template>
 

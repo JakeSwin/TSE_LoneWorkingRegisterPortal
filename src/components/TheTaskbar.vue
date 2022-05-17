@@ -9,6 +9,7 @@ export default {
             this.$emit('close')
         },
         logOut() {
+            document.cookie = "session=; expires=Thu, 12 May 2022 12:00:00 BST; SameSite=Lax; path=/";
             store.setLoggedIn(false)
             this.$router.push({ name: 'login' })
         }

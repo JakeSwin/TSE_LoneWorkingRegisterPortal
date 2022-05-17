@@ -2,36 +2,7 @@
 export default {
     props: {
     	'isSignedIn': Boolean,
-      	'studentID': String
-    },
-    data() {
-      	return {
-    		roomNumber: ''
-      	}
-    },
-    mounted() {
-      	const Url = 'https://jakesjsonplaceholder.com/student-data'
-      	const Data = {
-          	studentID: this.studentID,
-      	}
-
-      	const otherParams = {
-			headers:{
-				'content-type': 'application/json; charset=UTF-8'
-			},
-			body: {
-				Data
-			},
-			method:'POST'
-      	}
-
-		fetch(Url, otherParams)
-		.then(data=>{return data.json()})
-		.then(res=>console.log(res))
-		.catch(error=>{
-			console.log(error)
-			this.roomNumber = 'INB1102'
-		})
+      	'roomNumber': String
     },
 	methods: {
 		getClass() {

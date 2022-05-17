@@ -7,6 +7,7 @@ export default {
   data() {
     return {
       signedIn: true,
+      roomNumber: '',
       studentID: '25105508', //placeholder, value will be in global state
       heatmap: [
         [0, 1, 1, 0, 0, 0, 1],
@@ -16,13 +17,37 @@ export default {
       ]
     }
   },
+  mounted() {
+    const Url = 'https://jakesjsonplaceholder.com/student-data'
+    const Data = {
+        studentID: this.studentID,
+    }
+
+    const otherParams = {
+			headers:{
+				'content-type': 'application/json; charset=UTF-8'
+			},
+			body: {
+				Data
+			},
+			method:'POST'
+    }
+
+		fetch(Url, otherParams)
+		.then(data=>{return data.json()})
+		.then(res=>console.log(res))
+		.catch(error=>{
+			console.log(error)
+			this.roomNumber = 'INB1102'
+		})
+  },
   components: { Heatmap, SignInStatus, StudentRoomForm }
 }
 </script>
 
 <template>
   <div class="content">
-    <SignInStatus :isSignedIn="signedIn" :studentID="studentID"></SignInStatus>
+    <SignInStatus :isSignedIn="signedIn" :roomNumber="roomNumber"></SignInStatus>
     <Heatmap :heatmapData="heatmap"></Heatmap>
     <StudentRoomForm></StudentRoomForm>
   </div>

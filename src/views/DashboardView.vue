@@ -65,6 +65,7 @@ header {
 
 .date {
   padding: 1.1em 1.5em;
+  max-width: 25em;
 }
 
 .menu-mask {
