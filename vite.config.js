@@ -1,4 +1,4 @@
-import { fileURLToPath, URL } from 'url'
+import { fileURLToPath, pathToFileURL, URL } from 'url'
 
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
@@ -9,6 +9,16 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
+    }
+  },
+  server: {
+    proxy: {
+      "/backend": {
+        target: "https://localhost:7026/",
+        changeOrigin: true,
+        secure: false,
+        rewrite: (path) => path.replace(/^\/backend/, "")
+      }
     }
   },
   test: {

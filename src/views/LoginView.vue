@@ -21,8 +21,9 @@ export default {
     },
     methods: {
         sendLoginRequest() {
-            const Url = 'https://localhost:7026/api/register'
+            const Url = '/backend/api/register'
             const Data = {
+                name: 'john',
                 email: this.email,
                 password: this.password
             }

@@ -70,10 +70,11 @@ export default {
         sendRegisterRequest() {
             if (this.checkValidFields()) {
 
-                const Url = 'https://jakesjsonplaceholder.com/register'
+                const Url = '/api/api/register'
                 const Data = {
-                    email: this.email,
-                    password: this.password
+                    Name: 'John',
+                    Email: this.email,
+                    Password: this.password
                 }
 
                 const otherParams = {

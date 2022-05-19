@@ -1,6 +1,7 @@
 <script>
 import SignedInList from '../admin_dashboard_components/SignedInList.vue'
 import StatisticsBanner from '../statistics/StatisticsBanner.vue'
+import Histogram from '../statistics/Histogram.vue'
 
 // session value will be sent with every sensitive data request to ensure the
 // identity of the person sending the request
@@ -71,7 +72,8 @@ export default {
           roomID: "IN2102",
           time: "18:46"
         }
-      ]
+      ],
+      histogramData: [2, 20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     }
   },
   mounted() {
@@ -82,7 +84,7 @@ export default {
       return this.$route.name == 'dashboard' ? true : false
     }
   },
-  components: { SignedInList, StatisticsBanner }
+  components: { SignedInList, StatisticsBanner, Histogram }
 }
 </script>
 
@@ -92,10 +94,17 @@ Make sign in list accept values as props -->
   <div v-if="switchStudentView">
     <StatisticsBanner :stats="bannerStats"></StatisticsBanner>
     <SignedInList :studentList="studentList"></SignedInList>
+    <div class="footfall-graph">
+      <Histogram :histogramData="histogramData"></Histogram>
+    </div>
   </div>
   <router-view></router-view>
 </template>
 
-<style>
-
+<style scoped>
+.footfall-graph {
+  display: flex;
+  justify-content: center;
+  margin-top: 2em;
+}
 </style>
