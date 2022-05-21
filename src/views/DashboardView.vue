@@ -29,7 +29,7 @@ export default {
 }
 </script>
 
-<template> 
+<template>
   <TaskBar :visible="taskBarVisible" @close="toggleShowTaskBar()"></TaskBar>
   <div class="container">
     <header>

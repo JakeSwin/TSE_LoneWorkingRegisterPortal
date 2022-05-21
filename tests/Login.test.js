@@ -1,7 +1,6 @@
-import { describe, expect, it,  } from 'vitest'
+import { describe, expect, it, spyOn } from 'vitest'
 import { mount } from '@vue/test-utils'
 import Login from '../src/views/LoginView.vue'
-import RegisterView from '../src/views/RegisterView.vue'
 
 describe('Startup', () => {
   it('Should render', () => {
@@ -12,18 +11,16 @@ describe('Startup', () => {
   })
 })
 
-describe('Register', () => {
-  it('Should render', () => {
-    const wrapper = mount(RegisterView)
+// describe('Function calls', () => {
+//   it('Should send login request on button click', async () => {
+//     const wrapper = mount(Login)
 
-    expect(wrapper.find('form').exists()).toBeTruthy()
-  })
+//     expect(wrapper.find('form > button').exists()).toBe(true)
 
-  it('Should decline invalid emails', async () => {
-    const wrapper = mount(RegisterView)
+//     const spy = spyOn(wrapper.vm, 'sendLoginRequest')
 
-    await wrapper.get('input#emailfield').setValue('invalid.email@email.com')
-    
-    expect(wrapper.find('.form-field>.errormessage').toBeTruthy())
-  })
-})
+//     console.log(wrapper.find('form > button').trigger('click'))
+
+//     expect(wrapper.vm.sendLoginRequest).toBeCalled()
+//   })
+// })

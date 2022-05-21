@@ -32,9 +32,7 @@ export default {
                 headers:{
                     'content-type': 'application/json; charset=UTF-8'
                 },
-                body: {
-                    Data
-                },
+                body: JSON.stringify(Data),
                 method:'POST'
             }
 
@@ -46,7 +44,7 @@ export default {
                 this.errorMessage = 'Username or Email is incorrect'
                 
                 // Following should be in the above .then, here for debug purposes
-                document.cookie = "session=aaaa; expires=Thu, 19 May 2022 12:00:00 BST; SameSite=Lax; path=/";
+                document.cookie = "session=aaaa; expires=Thu, 25 May 2022 12:00:00 BST; SameSite=Lax; path=/";
                 store.setLoggedIn(true)
                 this.$router.push({name: 'dashboard'})
             })

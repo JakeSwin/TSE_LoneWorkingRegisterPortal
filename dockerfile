@@ -1,6 +1,6 @@
 FROM node:lts-alpine
 
-RUN npm install -g http-server
+ENV PORT "$PORT"
 
 WORKDIR /app
 
@@ -12,6 +12,6 @@ COPY . .
 
 RUN npm run build
 
-EXPOSE 8080
+EXPOSE $PORT
 
-CMD [ "http-server", "dist", "--port", "8080", "-P", "http://localhost:8080?"]
+CMD [ "node", "server.js" ]

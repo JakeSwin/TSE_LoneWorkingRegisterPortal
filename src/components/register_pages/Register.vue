@@ -14,7 +14,7 @@ export default {
     },
     watch: {
         email(newEmail) {
-            const re = new RegExp(/(?<!\d)\d{8}(?!\d)@students\.lincoln\.ac\.uk/g)
+            const re = new RegExp(/\b\d{8}\b@students\.lincoln\.ac\.uk/g)
             const matchArray = re.test(newEmail)
 
             if (!matchArray) {
@@ -26,8 +26,8 @@ export default {
             if (newEmail.length == 0) { this.errorEmail = '' }
         },
         password(newPassword) {
-            const re = new RegExp(/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,32}$/g)
-            const matchArray = re.test(newPassword)
+            // const re = new RegExp(/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,32}$/g)
+            const matchArray = this.matchValidPassword(newPassword)
 
             if (!matchArray) {
                 this.errorPassword = 'Password must be at least 8 characters long with digits, uppercase and lowercase'
@@ -50,12 +50,34 @@ export default {
         }
     },
     methods: {
+        matchValidPassword(password) {
+            let digitCount = 0
+            let lowerCount = 0
+            let upperCount = 0
+            for (let i = password.length - 1; i >= 0; i--) {
+                const d = password.charCodeAt(i)
+
+                if (d <= 57 && d >= 48) {
+                    digitCount = digitCount + 1
+                } else if (d <= 90 && d >= 65) {
+                    upperCount = upperCount + 1
+                } else if (d <= 122 && d >= 97) {
+                    lowerCount = lowerCount + 1
+                }
+            }
+
+            if (digitCount > 0 && lowerCount > 0 && upperCount > 0 && password.length >= 8) {
+                return true
+            } else {
+                return false
+            }
+        },
         checkValidFields() {
-            const emailRe = new RegExp(/(?<!\d)\d{8}(?!\d)@students\.lincoln\.ac\.uk/g)
-            const passwordRe = new RegExp(/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,32}$/g)
+            const emailRe = new RegExp(/\b\d{8}\b@students\.lincoln\.ac\.uk/g)
+            // const passwordRe = new RegExp(/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,32}$/g)
             
             const matchEmail = emailRe.test(this.email)
-            const matchPassword = passwordRe.test(this.password)
+            const matchPassword = this.matchValidPassword(this.password)
             const matchRePassword = (this.password == this.rePassword)
 
             if (matchEmail && matchPassword && matchRePassword) {
@@ -70,20 +92,20 @@ export default {
         sendRegisterRequest() {
             if (this.checkValidFields()) {
 
-                const Url = '/api/api/register'
-                const Data = {
-                    Name: 'John',
-                    Email: this.email,
-                    Password: this.password
-                }
+                const Url = '/backend/api/auth?authCode=0243505'
+                // const Data = {
+                //     Name: 'John',
+                //     Email: this.email,
+                //     Password: this.password
+                // }
 
                 const otherParams = {
-                    headers:{
-                        'content-type': 'application/json; charset=UTF-8'
-                    },
-                    body: {
-                        Data
-                    },
+                    // headers:{
+                    //     'content-type': 'application/json; charset=UTF-8'
+                    // },
+                    // body: {
+                    //     Data
+                    // },
                     method:'POST'
                 }
 

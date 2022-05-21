@@ -88,8 +88,6 @@ export default {
 }
 </script>
 
-<!-- Make Sign in list call backend from dashboard component
-Make sign in list accept values as props -->
 <template>
   <div v-if="switchStudentView">
     <StatisticsBanner :stats="bannerStats"></StatisticsBanner>
