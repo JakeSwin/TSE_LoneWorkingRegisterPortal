@@ -1,4 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
+
+import QRSignIn from '../components/qr_code_components/QRSignIn.vue'
 import LoginView from '../views/LoginView.vue'
 import RegisterView from '../views/RegisterView.vue'
 import DashboardView from '../views/DashboardView.vue'
@@ -16,10 +18,6 @@ import StudentView from '../views/StudentView.vue'
 import store from '../store.js'
 
 const routes = [
-  {
-    path: '/',
-    redirect: '/login'
-  },
   {
     path: '/login',
     name: 'login',
@@ -49,6 +47,15 @@ const routes = [
       }
     ]
   },
+  {
+    path: '/qrsignin/:authhash',
+    name: 'qrsignin',
+    component: QRSignIn
+  },
+  {
+    path: '/',
+    redirect: '/login'
+  },
 ]
 
 const router = createRouter({
@@ -58,7 +65,7 @@ const router = createRouter({
 
 //Check if user is logged in, if not redirect to login page
 router.beforeEach((to, from) => {
-  if(!store.getIsLoggedIn() && (to.name !== 'login' && to.name !== 'register')) {
+  if (!store.getIsLoggedIn() && (to.name !== 'login' && to.name !== 'register' && to.name !== 'qrsignin')) {
     return { name: 'login' }
   }
 })
