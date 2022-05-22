@@ -6,7 +6,7 @@ const state = reactive({
     isLoggedIn: false,
     studentID: '',
     isSignedIn: false,
-    isAdmin: true
+    isAdmin: false
 })
 
 const store = {

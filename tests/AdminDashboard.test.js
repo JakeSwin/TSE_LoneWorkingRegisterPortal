@@ -4,7 +4,6 @@ import { createRouter, createWebHistory }from 'vue-router'
 import { routes } from "../src/router/index.js"
 
 import AdminDashboard from '../src/components/dashboards/AdminDashboard.vue'
-// import DashboardView from '../src/views/DashboardView.vue'
 
 const router = createRouter({
     history: createWebHistory(),
@@ -20,11 +19,6 @@ describe('Startup', () => {
         const wrapper = mount(AdminDashboard, {
             global: {
                 plugins: [router]
-            },
-            stubs: {
-                Histogram: {
-                    template: '<span />'
-                }
             }
         })
 

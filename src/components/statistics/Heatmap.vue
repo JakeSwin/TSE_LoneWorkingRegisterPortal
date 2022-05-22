@@ -42,7 +42,11 @@ export default {
             r: 30
         }
     };
+    try {
     Plotly.newPlot("sign-in-heatmap", data, layout, config);
+    } catch {
+      
+    }
   },
 }
 </script>

@@ -10,7 +10,7 @@ describe('Startup', () => {
     })
 })
 
-describe('Error conditions', () => {
+describe('Invalid fields', () => {
     it('Should decline invalid emails', async () => {
         const wrapper = mount(Register)
 
@@ -38,7 +38,7 @@ describe('Error conditions', () => {
     })
 })
 
-describe('Pass conditions', () => { 
+describe('Valid fields', () => { 
     it('Should accept valid emails', async () => {
         const wrapper = mount(Register)
 

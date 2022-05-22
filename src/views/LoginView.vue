@@ -23,7 +23,6 @@ export default {
         sendLoginRequest() {
             const Url = '/backend/api/register'
             const Data = {
-                name: 'john',
                 email: this.email,
                 password: this.password
             }
@@ -38,7 +37,11 @@ export default {
 
             fetch(Url, otherParams)
             .then(data=>{return data.json()})
-            .then(res=>console.log(res))
+            .then(res=>{
+                console.log(res)
+                store.setLoggedIn(true)
+                this.$router.push({name: 'dashboard'})
+            })
             .catch(error=>{
                 console.log(error)
                 this.errorMessage = 'Username or Email is incorrect'
