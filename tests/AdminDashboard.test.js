@@ -19,7 +19,8 @@ describe('Startup', () => {
         const wrapper = mount(AdminDashboard, {
             global: {
                 plugins: [router]
-            }
+            },
+            stubs: ['router-link']
         })
 
         expect(wrapper.find('h4').text()).toBe("Signed In Students:")

@@ -19,7 +19,8 @@ describe('Startup', () => {
         const wrapper = mount(StudentDashboard, {
             global: {
                 plugins: [router]
-            }
+            },
+            stubs: ['router-link']
         })
 
         expect(wrapper.find('h3').text()).toBe("Update Room:")

@@ -9,27 +9,25 @@ export default {
     },
     methods: {
         sendConfirmationCode() {
-            const Url = 'https://jakesjsonplaceholder.com/confirm'
-            const Data = {
-                confirmationCode: this.code
-            }
+            const Url = '/backend/api/auth?authcode=' + this.code
 
             const otherParams = {
-                headers:{
-                    'content-type': 'application/json; charset=UTF-8'
-                },
-                body: {
-                    Data
-                },
                 method:'POST'
             }
 
             fetch(Url, otherParams)
-            .then(data=>{return data.json()})
-            .then(res=>console.log(res))
-            .catch(error=>{
+            .then(res => {
+                console.log(res)
+                
+                if (res.status == '200') {
+                    this.$router.push('/login')
+                } else {
+                    this.errorMessage = 'Invalid Confirmation Code'
+                }
+            })
+            .catch(error => {
                 console.log(error)
-                this.errorMessage = 'Invalid Confirmation Code'
+                this.errorMessage = 'An unexpected Error Occured'
             })
         }
     }

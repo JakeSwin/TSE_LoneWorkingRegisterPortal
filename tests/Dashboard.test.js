@@ -4,7 +4,9 @@ import DashboardView from '../src/views/DashboardView.vue'
 
 describe('Startup', () => {
     it('Should render', () => {
-        const wrapper = shallowMount(DashboardView)
+        const wrapper = shallowMount(DashboardView, {
+            stubs: ['router-link']
+        })
 
         expect(wrapper.find('header > h2').text()).toBe("DASHBOARD")
     })
@@ -12,7 +14,9 @@ describe('Startup', () => {
 
 describe('Function Calls', () => {
     it('Should toggle task bar', async () => {
-        const wrapper = shallowMount(DashboardView)
+        const wrapper = shallowMount(DashboardView, {
+            stubs: ['router-link']
+        })
 
         expect(wrapper.find('.menu-mask').exists()).toBe(true)
 

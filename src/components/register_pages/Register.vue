@@ -92,32 +92,29 @@ export default {
         sendRegisterRequest() {
             if (this.checkValidFields()) {
 
-                const Url = '/backend/api/auth?authCode=0243505'
-                // const Data = {
-                //     Name: 'John',
-                //     Email: this.email,
-                //     Password: this.password
-                // }
+                const Url = '/backend/api/register'
+                const Data = {
+                    email: this.email,
+                    password: this.password
+                }
 
                 const otherParams = {
-                    // headers:{
-                    //     'content-type': 'application/json; charset=UTF-8'
-                    // },
-                    // body: {
-                    //     Data
-                    // },
+                    headers:{
+                        'content-type': 'application/json; charset=UTF-8'
+                    },
+                    body: JSON.stringify(Data),
                     method:'POST'
                 }
 
                 fetch(Url, otherParams)
-                .then(data=>{return data.json()})
                 .then(res=>{
                     console.log(res)
-                    //this.submitForm()
+                    if (res.status == 201) {
+                        this.submitForm()
+                    }
                 })
                 .catch(error=>{
-                    this.submitForm()
-                    console.log(error)
+                    // console.log(error)
                     this.errorMessage = 'One or more form fields are incorrect'
                 })
 

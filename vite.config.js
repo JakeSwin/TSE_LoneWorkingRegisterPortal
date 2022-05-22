@@ -11,16 +11,16 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
   },
-  // server: {
-  //   proxy: {
-  //     "/backend": {
-  //       target: "https://localhost:7026/",
-  //       changeOrigin: true,
-  //       secure: false,
-  //       rewrite: (path) => path.replace(/^\/backend/, "")
-  //     }
-  //   }
-  // },
+  server: {
+    proxy: {
+      "/backend": {
+        target: "https://localhost:7026/",
+        changeOrigin: true,
+        secure: false,
+        rewrite: (path) => path.replace(/^\/backend/, "")
+      }
+    }
+  },
   test: {
     globals: true,
     environment: 'happy-dom'

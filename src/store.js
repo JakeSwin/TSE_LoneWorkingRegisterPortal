@@ -5,7 +5,7 @@ const debug = true;
 const state = reactive({
     isLoggedIn: false,
     studentID: '',
-    isSignedIn: false,
+    roomNumber: '',
     isAdmin: false
 })
 
@@ -24,12 +24,12 @@ const store = {
 
         state.studentID = newValue
     },
-    setSignedIn(newValue) {
+    setRoomNumber(newValue) {
         if (debug) {
-            console.log('setSignedIn triggered with ', newValue)
+            console.log('setRoomNumber triggered with ', newValue)
         }
 
-        state.isSignedIn = newValue
+        state.roomNumber = newValue
     },
     setIsAdmin(newValue) {
         if (debug) {
@@ -44,8 +44,8 @@ const store = {
     getStudentID() {
         return state.studentID
     },
-    getIsSignedIn() {
-        return state.isSignedIn
+    getRoomNumber() {
+        return state.roomNumber
     },
     getIsAdmin() {
         return state.isAdmin

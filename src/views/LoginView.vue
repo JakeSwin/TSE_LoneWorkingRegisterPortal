@@ -11,17 +11,30 @@ export default {
         }
     },
     mounted() {
-        console.log(document.cookie)
+        // console.log(document.cookie)
         // send request to check cookie with backend here
-
-        if (document.cookie == 'session=aaaa') {
-            store.setLoggedIn(true)
-            this.$router.push({name: 'dashboard'})
-        }
+        fetch('/backend/api/check-session')
+        .then(res => {
+            console.log(res)
+            if (res.status == 200) {
+                res.json()
+                .then(json => {
+                    console.log(json)
+                    store.setLoggedIn(true)
+                    store.setStudentID(json.id)
+                    store.setIsAdmin(json.admin)
+                    store.setRoomNumber(json.currentRoom)
+                    this.$router.push({name: 'dashboard'})
+                })
+            }
+        })
+        .catch(error => {
+                console.log(error)
+        })
     },
     methods: {
         sendLoginRequest() {
-            const Url = '/backend/api/register'
+            const Url = '/backend/api/login'
             const Data = {
                 email: this.email,
                 password: this.password
@@ -36,20 +49,27 @@ export default {
             }
 
             fetch(Url, otherParams)
-            .then(data=>{return data.json()})
-            .then(res=>{
+            .then(res => {
                 console.log(res)
-                store.setLoggedIn(true)
-                this.$router.push({name: 'dashboard'})
+                if (res.status == 200) {
+                    res.json()
+                    .then(json => {
+                        console.log(json)
+                        store.setLoggedIn(true)
+                        store.setStudentID(json.id)
+                        store.setIsAdmin(json.admin)
+                        this.$router.push({name: 'dashboard'})
+                    })
+                }
             })
             .catch(error=>{
                 console.log(error)
                 this.errorMessage = 'Username or Email is incorrect'
                 
                 // Following should be in the above .then, here for debug purposes
-                document.cookie = "session=aaaa; expires=Thu, 25 May 2022 12:00:00 BST; SameSite=Lax; path=/";
-                store.setLoggedIn(true)
-                this.$router.push({name: 'dashboard'})
+                // document.cookie = "session=aaaa; expires=Thu, 25 May 2022 12:00:00 BST; SameSite=Lax; path=/";
+                // store.setLoggedIn(true)
+                // this.$router.push({name: 'dashboard'})
             })
         }
     }

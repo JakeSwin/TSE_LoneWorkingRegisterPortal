@@ -1,28 +1,32 @@
-import { describe, expect, it, spyOn, fn, beforeEach } from 'vitest'
-import { shallowMount, mount, flushPromises } from "@vue/test-utils"
-import { createRouter, createWebHistory } from 'vue-router'
-import { routes } from "../src/router/index.js"
+import { describe, expect, it, spyOn, fn } from 'vitest'
+import { shallowMount, mount } from "@vue/test-utils"
+
+const mockRouter = {
+  push: fn()
+}
+
+const mountConfig = {
+  global: {
+    stubs: ['router-link'],
+    mocks: {
+      $router: mockRouter
+    }
+  }
+}
 
 import Login from '../src/views/LoginView.vue'
 
-let router;
-beforeEach(async () => {
-  router = createRouter({
-    history: createWebHistory(),
-    routes: routes
-  })
-})
+// let router;
+// beforeEach(async () => {
+//   router = createRouter({
+//     history: createWebHistory(),
+//     routes: routes
+//   })
+// })
 
 describe('Startup', () => {
   it('Should render', async () => {
-    router.push('/login')
-    await router.isReady()
-
-    const wrapper = mount(Login, {
-      global: {
-        plugins: [router]
-      }
-    })
+    const wrapper = mount(Login, mountConfig)
 
     expect(wrapper.find('form').exists()).toBeTruthy()
     expect(wrapper.find('footer>a').exists()).toBeTruthy()
@@ -31,15 +35,7 @@ describe('Startup', () => {
 
 describe('Function calls', () => {
   it('Should send login request on button click', async () => {
-    router.push('/login')
-
-    await router.isReady()
-
-    const wrapper = mount(Login, {
-      global: {
-        plugins: [router]
-      }
-    })
+    const wrapper = mount(Login, mountConfig)
 
     expect(wrapper.find('form > button').exists()).toBe(true)
 
@@ -51,15 +47,7 @@ describe('Function calls', () => {
   })
 
   it('Should send correct data on login request', async () => {
-    router.push('/login')
-
-    await router.isReady()
-
-    const wrapper = mount(Login, {
-      global: {
-        plugins: [router]
-      }
-    })
+    const wrapper = mount(Login, mountConfig)
 
     const spy2 = spyOn(global, 'fetch').mockResolvedValue({
       isLoggedIn: true,

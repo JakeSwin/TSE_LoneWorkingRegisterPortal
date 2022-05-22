@@ -1,9 +1,20 @@
 <script>
 export default {
     props: {
-    	'isSignedIn': Boolean,
       	'roomNumber': String
     },
+	data() {
+		return {
+			isSignedIn: false
+		}
+	},
+	mounted() {
+		if (this.roomNumber === '' || !this.roomNumber) {
+			this.isSignedIn = false
+		} else {
+			this.isSignedIn = true
+		}
+	},
 	methods: {
 		getClass() {
 			return {
