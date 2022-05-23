@@ -60,6 +60,7 @@ export default {
 .log-out {
     display: flex;
     flex-direction: row;
+    margin-bottom: 1em;
 }
 
 .log-out object {
