@@ -4,14 +4,10 @@ ENV PORT "$PORT"
 
 WORKDIR /app
 
-COPY package*.json ./
+COPY . .
 
 RUN npm install
 
-COPY . .
-
-RUN npm run build
-
 EXPOSE $PORT
 
-CMD [ "node", "server.js" ]
+CMD [ "npm", "run", "dev" ]

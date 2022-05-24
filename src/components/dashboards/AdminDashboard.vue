@@ -9,75 +9,54 @@ import Histogram from '../statistics/Histogram.vue'
 export default {
   data() {
     return {
-      bannerStats: [
-        {
-          id: 1,
-          value: 24,
-          message: "students signed in" 
-        }, 
-        {
-          id: 2,
-          value: 104,
-          message: "total door footfall"
-        }
-      ],
-      studentList: [
-        {
-          studentID: "25105508",
-          roomID: "INB1104",
-          time: "19:14"
-        },
-        {
-          studentID: "25107512",
-          roomID: "IN2102",
-          time: "18:46"
-        },
-        {
-          studentID: "25123418",
-          roomID: "INB1103",
-          time: "20:28"
-        },
-        {
-          studentID: "24112596",
-          roomID: "INB3101",
-          time: "21:32"
-        },
-        {
-          studentID: "25205508",
-          roomID: "INB1104",
-          time: "19:14"
-        },
-        {
-          studentID: "25207512",
-          roomID: "IN2102",
-          time: "18:46"
-        },
-        {
-          studentID: "25223418",
-          roomID: "INB1103",
-          time: "20:28"
-        },
-        {
-          studentID: "24212596",
-          roomID: "INB3101",
-          time: "21:32"
-        },
-        {
-          studentID: "25305508",
-          roomID: "INB1104",
-          time: "19:14"
-        },
-        {
-          studentID: "25307512",
-          roomID: "IN2102",
-          time: "18:46"
-        }
-      ],
-      histogramData: [2, 20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+      bannerStats: [],
+      studentList: [],
+      histogramData: [],
+      histogramTimes: []
     }
   },
   mounted() {
-    
+    fetch('/backend/api/students')
+    .then(res => {
+      console.log(res)
+      res.json()
+      .then(json => {
+        console.log(json)
+        this.studentList = json
+        this.bannerStats[0] = {
+          id: 1,
+          value: json.length,
+          message: "students signed in" 
+        }
+      })
+    })
+    fetch('/backend/api/sensor-data')
+    .then(res => {
+      res.json()
+      .then(json => {
+        var totalFootFall = 0
+        var times = []
+        var timeData = []
+        json.forEach(item => {
+          console.log(item)
+          times.push(item.timeSent)
+          var totalTenMinFootFall = 0
+          for(let x in item.timeRecieved) {
+            totalTenMinFootFall += item.timeRecieved[x]
+            totalFootFall += item.timeRecieved[x]
+          }
+          timeData.push(totalTenMinFootFall)
+        })
+        this.bannerStats[1] = {
+          id: 2,
+          value: totalFootFall,
+          message: "total door footfall" 
+        }
+        console.log(times)
+        this.histogramTimes = times
+        // this.histogramData = timeData
+      })
+    })
   },
   computed: {
     switchStudentView() {
@@ -93,7 +72,7 @@ export default {
     <StatisticsBanner :stats="bannerStats"></StatisticsBanner>
     <SignedInList :studentList="studentList"></SignedInList>
     <div class="footfall-graph">
-      <Histogram :histogramData="histogramData"></Histogram>
+      <Histogram></Histogram>
     </div>
   </div>
   <router-view></router-view>

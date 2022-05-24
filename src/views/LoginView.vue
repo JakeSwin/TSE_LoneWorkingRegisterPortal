@@ -1,5 +1,6 @@
 <script>
 import store from '../store.js'
+window.onbeforeunload = function () {return false;}
 
 export default {
     // inject: ['state'],

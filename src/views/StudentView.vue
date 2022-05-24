@@ -7,7 +7,7 @@ export default {
     return {
       signedIn: true,
       roomNumber: '',
-      studentID: this.$route.params.studentID, 
+      studentID: this.$route.params.id, 
       heatmap: [
         [0, 1, 1, 0, 0, 0, 1],
         [1, 0, 1, 0, 0, 1, 0],
@@ -17,27 +17,18 @@ export default {
     }
   },
   mounted() {
-    const Url = 'https://jakesjsonplaceholder.com/student-data'
-    const Data = {
-        studentID: this.studentID,
-    }
+    const Url = '/backend/api/students/' + this.$route.params.id
 
-    const otherParams = {
-			headers:{
-				'content-type': 'application/json; charset=UTF-8'
-			},
-			body: {
-				Data
-			},
-			method:'POST'
-    }
-
-		fetch(Url, otherParams)
-		.then(data=>{return data.json()})
-		.then(res=>console.log(res))
+		fetch(Url)
+		.then(res=> {
+      console.log(res)
+      res.json()
+      .then(json => {
+        console.log(json)
+      })
+    })
 		.catch(error=>{
 			console.log(error)
-			this.roomNumber = 'INB1102'
 		})
   },
   components: { Heatmap, SignInStatus }

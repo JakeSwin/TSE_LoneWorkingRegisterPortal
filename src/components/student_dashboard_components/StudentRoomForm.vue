@@ -18,24 +18,16 @@ export default {
   },
   methods: {
     sendChangeRooms() {
-      const Url = 'https://jakesjsonplaceholder.com/change-rooms'
-      const Data = {
-        roomNumber: this.roomNumber
-      }
+      const Url = "/backend/api/change-rooms?roomID=" + this.roomNumber
 
       const otherParams = {
-          headers:{
-              'content-type': 'application/json; charset=UTF-8'
-          },
-          body: {
-              Data
-          },
-          method:'POST'
+        method:'POST'
       }
 
       fetch(Url, otherParams)
-      .then(data=>{return data.json()})
-      .then(res=>console.log(res))
+      .then(res=> {
+        console.log(res)
+      })
       .catch(error=>{
           console.log(error)
           this.errorMessage = 'Change room request failed'
