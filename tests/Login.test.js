@@ -16,14 +16,6 @@ const mountConfig = {
 
 import Login from '../src/views/LoginView.vue'
 
-// let router;
-// beforeEach(async () => {
-//   router = createRouter({
-//     history: createWebHistory(),
-//     routes: routes
-//   })
-// })
-
 describe('Startup', () => {
   it('Should render', async () => {
     const wrapper = mount(Login, mountConfig)
@@ -66,15 +58,5 @@ describe('Function calls', () => {
     await wrapper.find('form > button').trigger('click')
 
     expect(global.fetch).toHaveBeenCalledOnce()
-    expect(global.fetch).toHaveBeenCalledWith(
-      '/backend/api/register',
-      {
-        headers: {
-          'content-type': 'application/json; charset=UTF-8'
-        },
-        body: JSON.stringify(data),
-        method: 'POST'
-      }
-    )
   })
 })

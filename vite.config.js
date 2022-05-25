@@ -49,11 +49,11 @@ export default defineConfig(({ command, mode }) => {
       ...defaultConfig,
       server: {
         proxy: {
-          "/backend": {
-            target: "https://cryptic-stream-90225.herokuapp.com",
+          "/api": {
+            target: "https://cryptic-stream-90225.herokuapp.com/api",
             changeOrigin: isDev,
             secure: !isDev,
-            rewrite: (path) => path.replace(/^\/backend/, "")
+            rewrite: (path) => path.replace(/^\/api/, "")
           }
         },
         port: process.env.PORT || 5000

@@ -17,7 +17,7 @@ export default {
     }
   },
   mounted() {
-    const Url = '/backend/api/students/' + this.$route.params.id
+    const Url = '/api/students/' + this.$route.params.id
 
 		fetch(Url)
 		.then(res=> {

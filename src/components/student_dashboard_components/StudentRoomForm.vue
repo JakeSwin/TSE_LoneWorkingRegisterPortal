@@ -18,7 +18,7 @@ export default {
   },
   methods: {
     sendChangeRooms() {
-      const Url = "/backend/api/change-rooms?roomID=" + this.roomNumber
+      const Url = "/api/change-rooms?roomID=" + this.roomNumber
 
       const otherParams = {
         method:'POST'

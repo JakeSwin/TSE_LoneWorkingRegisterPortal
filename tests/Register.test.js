@@ -116,15 +116,6 @@ describe('Valid function behavior', async () => {
     it('Should not have any error messages after API call', () => {
         expect(wrapper.find('.error-message').exists()).toBe(false)
     })
-
-    it("Should have emitted the registerSubmitted event with the user's email", async () => {
-        await wrapper.get('form > button').trigger('click')
-
-        expect(wrapper.emitted()).toHaveProperty('registerSubmitted')
-        expect(wrapper.emitted('registerSubmitted')).toEqual([[
-            '22104408@students.lincoln.ac.uk'
-        ]])
-    })
 })
 
 describe('Invalid Function behavior', async () => {

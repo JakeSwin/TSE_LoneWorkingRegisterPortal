@@ -9,7 +9,7 @@ export default {
             this.$emit('close')
         },
         logOut() {
-            fetch("/backend/api/sign-out", { method: "POST" })
+            fetch("/api/sign-out", { method: "POST" })
             .then(res => {
                 console.log(res)
                 store.setLoggedIn(false)

@@ -5,23 +5,23 @@ import { routes } from "../src/router/index.js"
 
 import StudentDashboard from '../src/components/dashboards/StudentDashboard.vue'
 
-const router = createRouter({
-    history: createWebHistory(),
-    routes: routes
-})
+const mockRouter = {
+    push: fn()
+}
+
+const mountConfig = {
+    global: {
+        stubs: ['router-link'],
+        mocks: {
+            $router: mockRouter
+        }
+    }
+}
+
 
 describe('Startup', () => {
-    it('Should render', async () => {
-        router.push('/dashboard')
-
-        await router.isReady()
-
-        const wrapper = mount(StudentDashboard, {
-            global: {
-                plugins: [router]
-            },
-            stubs: ['router-link']
-        })
+    it('Should render', () => {
+        const wrapper = mount(StudentDashboard, mountConfig)
 
         expect(wrapper.find('h3').text()).toBe("Update Room:")
     })

@@ -9,7 +9,7 @@ export default {
     },
     methods: {
         sendConfirmationCode() {
-            const Url = '/backend/api/auth?authcode=' + this.code
+            const Url = '/api/auth?authcode=' + this.code
 
             const otherParams = {
                 method:'POST'

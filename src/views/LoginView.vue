@@ -1,9 +1,7 @@
 <script>
 import store from '../store.js'
-window.onbeforeunload = function () {return false;}
 
 export default {
-    // inject: ['state'],
     data() {
         return {
             email: '',
@@ -12,14 +10,13 @@ export default {
         }
     },
     mounted() {
-        // console.log(document.cookie)
         // send request to check cookie with backend here
-        fetch('/backend/api/check-session')
+        fetch('/api/check-session')
         .then(res => {
             console.log(res)
             if (res.status == 200) {
                 res.json()
-                .then(json => {
+                .then(json => { 
                     console.log(json)
                     store.setLoggedIn(true)
                     store.setStudentID(json.id)
@@ -35,7 +32,7 @@ export default {
     },
     methods: {
         sendLoginRequest() {
-            const Url = '/backend/api/login'
+            const Url = '/api/login'
             const Data = {
                 email: this.email,
                 password: this.password
@@ -61,16 +58,13 @@ export default {
                         store.setIsAdmin(json.admin)
                         this.$router.push({name: 'dashboard'})
                     })
+                } else {
+                    this.errorMessage = 'Username or Email is incorrect'
                 }
             })
             .catch(error=>{
                 console.log(error)
                 this.errorMessage = 'Username or Email is incorrect'
-                
-                // Following should be in the above .then, here for debug purposes
-                // document.cookie = "session=aaaa; expires=Thu, 25 May 2022 12:00:00 BST; SameSite=Lax; path=/";
-                // store.setLoggedIn(true)
-                // this.$router.push({name: 'dashboard'})
             })
         }
     }

@@ -27,3 +27,8 @@ npm run dev
 ```sh
 npm run build
 ```
+
+### Admin Account
+
+Username: 11111111@students.lincoln.ac.uk
+Password: Aa123456

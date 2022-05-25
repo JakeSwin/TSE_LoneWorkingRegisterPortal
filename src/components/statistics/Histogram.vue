@@ -2,7 +2,7 @@
 export default {
   mounted() {
     try {
-      fetch('/backend/api/sensor-data')
+      fetch('/api/sensor-data')
       .then(res => {
         res.json()
         .then(json => {

@@ -92,7 +92,7 @@ export default {
         sendRegisterRequest() {
             if (this.checkValidFields()) {
 
-                const Url = '/backend/api/register'
+                const Url = '/api/register'
                 const Data = {
                     email: this.email,
                     password: this.password

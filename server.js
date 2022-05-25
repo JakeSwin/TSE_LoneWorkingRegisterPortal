@@ -5,13 +5,11 @@ var port = process.env.PORT || 5000
 
 app = express()
 
+// Express will serve static files located in /dist after npm build has run
 app.use(express.static(__dirname + '/dist'))
 
-// app.get('/*', (req, res) => {
-//     res.sendFile(__dirname + '/index.html')
-// })
-
-app.use('/backend', createProxyMiddleware({
+// Api proxy for backend server
+app.use('/api', createProxyMiddleware({
     target: "https://cryptic-stream-90225.herokuapp.com",
     changeOrigin: true,
     secure: false
