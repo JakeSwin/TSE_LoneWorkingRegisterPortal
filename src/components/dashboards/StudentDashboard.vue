@@ -9,13 +9,7 @@ export default {
   data() {
     return {
       roomNumber: store.getRoomNumber(),
-      studentID: store.getStudentID(), 
-      heatmap: [
-        [0, 1, 1, 0, 0, 0, 1],
-        [1, 0, 1, 0, 0, 1, 0],
-        [0, 0, 0, 1, 0, 0, 1],
-        [0, 0, 1, 0, 0, 0, 0]
-      ]
+      studentID: store.getStudentID(),
     }
   },
   components: { Heatmap, SignInStatus, StudentRoomForm }
@@ -25,7 +19,7 @@ export default {
 <template>
   <div class="content">
     <SignInStatus :roomNumber="roomNumber"></SignInStatus>
-    <Heatmap :heatmapData="heatmap"></Heatmap>
+    <Heatmap :studentID="studentID"></Heatmap>
     <StudentRoomForm></StudentRoomForm>
   </div>
 </template>

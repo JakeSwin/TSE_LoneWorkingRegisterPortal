@@ -2,6 +2,8 @@
 import Register from '../components/register_pages/Register.vue'
 import Verify from '../components/register_pages/Verify.vue'
 
+import store from '../store.js'
+
 export default {
     components: {
         Register,
@@ -12,6 +14,30 @@ export default {
             registerPage: true, //true by default
             email: ''
         }
+    },
+    mounted() {
+        fetch('/api/check-session')
+        .then(res => {
+            console.log(res)
+            if (res.status == 200) {
+                res.json()
+                .then(json => { 
+                    console.log(json)
+                    if (json.verified) {
+                        store.setLoggedIn(true)
+                        store.setStudentID(json.id)
+                        store.setIsAdmin(json.admin)
+                        store.setRoomNumber(json.currentRoom)
+                        this.$router.push({name: 'dashboard'})
+                    } else {
+                        this.switchToVerify(json.email)
+                    }
+                })
+            }
+        })
+        .catch(error => {
+            console.log(error)
+        })
     },
     methods: {
         switchToVerify(email) {

@@ -1,17 +1,33 @@
 <script>
 export default {
-  props: {
-    heatmapData: {
-      type: Object,
-      default: [
-          [0, 0, 0, 0, 0, 0, 0],
-          [0, 0, 0, 0, 0, 0, 0],
-          [0, 0, 0, 0, 0, 0, 0],
-          [0, 0, 0, 0, 0, 0, 0]
+  data() {
+    return {
+      heatmapData: [
+          [0, 1, 0, 0, 0, 0, 1],
+          [0, 0, 1, 0, 0, 1, 0],
+          [0, 0, 0, 1, 0, 0, 0],
+          [0, 1, 0, 1, 0, 0, 1]
         ]
     }
   },
+  props: {
+    studentID: {
+      type: String,
+      default: "00000000"
+    }
+  },
   mounted() {
+    const url = '/api/students/' + this.studentID
+    fetch(url)
+    .then(res => {
+      console.log(res)
+      res.json()
+      .then(json => {
+        console.log(json)
+        this.heatmapData = json
+      })
+    })
+
     var colorscaleValue = [
         [0, "#EBEBEB"],
         [1, "#33E9C8"]

@@ -18,16 +18,18 @@ export default {
                 res.json()
                 .then(json => { 
                     console.log(json)
-                    store.setLoggedIn(true)
-                    store.setStudentID(json.id)
-                    store.setIsAdmin(json.admin)
-                    store.setRoomNumber(json.currentRoom)
-                    this.$router.push({name: 'dashboard'})
+                    if (json.verified) {
+                        store.setLoggedIn(true)
+                        store.setStudentID(json.id)
+                        store.setIsAdmin(json.admin)
+                        store.setRoomNumber(json.currentRoom)
+                        this.$router.push({name: 'dashboard'})
+                    }
                 })
             }
         })
         .catch(error => {
-                console.log(error)
+            console.log(error)
         })
     },
     methods: {
@@ -52,11 +54,15 @@ export default {
                 if (res.status == 200) {
                     res.json()
                     .then(json => {
-                        console.log(json)
-                        store.setLoggedIn(true)
-                        store.setStudentID(json.id)
-                        store.setIsAdmin(json.admin)
-                        this.$router.push({name: 'dashboard'})
+                        if (json.verified) {
+                            console.log(json)
+                            store.setLoggedIn(true)
+                            store.setStudentID(json.id)
+                            store.setIsAdmin(json.admin)
+                            this.$router.push({name: 'dashboard'})
+                        } else {
+                            this.errorMessage = 'Account is not verified'
+                        }
                     })
                 } else {
                     this.errorMessage = 'Username or Email is incorrect'

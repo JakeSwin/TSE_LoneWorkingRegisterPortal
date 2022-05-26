@@ -7,29 +7,8 @@ export default {
     return {
       signedIn: true,
       roomNumber: '',
-      studentID: this.$route.params.id, 
-      heatmap: [
-        [0, 1, 1, 0, 0, 0, 1],
-        [1, 0, 1, 0, 0, 1, 0],
-        [0, 0, 0, 1, 0, 0, 1],
-        [0, 0, 1, 0, 0, 0, 0]
-      ]
+      studentID: this.$route.params.id,
     }
-  },
-  mounted() {
-    const Url = '/api/students/' + this.$route.params.id
-
-		fetch(Url)
-		.then(res=> {
-      console.log(res)
-      res.json()
-      .then(json => {
-        console.log(json)
-      })
-    })
-		.catch(error=>{
-			console.log(error)
-		})
   },
   components: { Heatmap, SignInStatus }
 }
@@ -38,7 +17,7 @@ export default {
 <template>
   <div class="content">
     <SignInStatus :isSignedIn="signedIn" :roomNumber="roomNumber"></SignInStatus>
-    <Heatmap :heatmapData="heatmap"></Heatmap>
+    <Heatmap :studentID="studentID"></Heatmap>
     <router-link to="/dashboard">Back</router-link>
   </div>
 </template>

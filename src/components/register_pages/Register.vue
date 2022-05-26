@@ -109,6 +109,10 @@ export default {
                 fetch(Url, otherParams)
                 .then(res=>{
                     console.log(res)
+                    res.json()
+                    .then(json => {
+                        console.log(json)
+                    })
                     if (res.status == 201) {
                         this.submitForm()
                     }
