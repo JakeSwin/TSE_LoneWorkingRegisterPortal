@@ -5,8 +5,6 @@ import SignInStatus from '../components/student_dashboard_components/StudentSign
 export default {
   data() {
     return {
-      signedIn: true,
-      roomNumber: '',
       studentID: this.$route.params.id,
     }
   },
@@ -16,7 +14,6 @@ export default {
 
 <template>
   <div class="content">
-    <SignInStatus :isSignedIn="signedIn" :roomNumber="roomNumber"></SignInStatus>
     <Heatmap :studentID="studentID"></Heatmap>
     <router-link to="/dashboard">Back</router-link>
   </div>
